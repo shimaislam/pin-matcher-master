@@ -21,31 +21,31 @@
                 </div>
                 <div class="col-md-6">
                     <div class="input-section half-width">
-                        <input class="form-control" type="text">
+                        <input class="form-control" type="text" id="pass">
                         <div class="numbers">
                             <div class="calc-body">
                                 <div class="calc-button-row">
-                                <div class="button">7</div>
-                                <div class="button">8</div>
-                                <div class="button">9</div>
+                                <div class="button" input value="7" onclick="insert(7)" id="6">7</div>
+                                <div class="button" input value="8" onclick="insert(8)" id="7">8</div>
+                                <div class="button" input value="9" onclick="insert(9)" id="8">9</div>
                                 </div>
                                 <div class="calc-button-row">
-                                <div class="button">4</div>
-                                <div class="button">5</div>
-                                <div class="button">6</div>
+                                <div class="button" input value="4" onclick="insert(4)" id="9">4</div>
+                                <div class="button" input value="5" onclick="insert(5)" id="10">5</div>
+                                <div class="button" input value="6" onclick="insert(6)" id="11">6</div>
                                 </div>
                                 <div class="calc-button-row">
-                                <div class="button">1</div>
-                                <div class="button">2</div>
-                                <div class="button">3</div>
+                                <div class="button" input value="1" onclick="insert(1)" id="12">1</div>
+                                <div class="button" input value="2" onclick="insert(2)" id="13">2</div>
+                                <div class="button" input value="3" onclick="insert(3)" id="14">3</div>
                                 </div>
                                 <div class="calc-button-row">
-                                    <div class="button"><</div>
-                                    <div class="button">0</div>
-                                    <div class="button">C</div>
+                                    <div class="button" input value="<" onclick="cancel()" id="15"><</div>
+                                    <div class="button" input value="0" onclick="insert(0)" id="16">0</div>
+                                    <div class="button" input value="c" onclick="clean()" id="17">C</div>
                                 </div>
                                 <div>
-                                    <button type="submit" class="submit-btn">Submit</button>
+                                    <button type="submit" class="submit-btn" id="submit">Submit</button>
                                     <p class="action-left">3 try left</p>
                                 </div>
                         </div>
@@ -53,13 +53,15 @@
                 </div>
             </div>
             <div class="notify-section" id="hide-section">
-                <p class="notify">❌ Pin Didn't Match, Please try again</p>
-                <p class="notify">✅ Pin Matched... Secret door is opening for you</p>
+                <p class="notify" id="no">❌ Pin Didn't Match, Please try again</p>
+                <p class="notify" id="yes">✅ Pin Matched... Secret door is opening for you</p>
             </div>
         </div>
             <script>
-                const notifySection = document.getElementById("hide-section");
+                const notifySection = document.getElementById("no");
                 notifySection .style .display = "none";
+                const notifySections = document.getElementById("yes");
+                notifySections .style .display = "none";
                 //random number
                const addInput = document.getElementById('add-pin').addEventListener('click',function(){
                 const showInput = document.getElementById('show-pin').value;
@@ -68,6 +70,26 @@
                 const result = Math.round(generatePin);
                 showInput.value = result;
                 document.getElementById('show-pin').value = result;
+               })
+              function insert(num){
+                  pass.value = pass.value + num
+              }
+               function clean(){
+                   pass.value = ''
+               }
+               function cancel(){
+                   let num = pass.value
+                   pass.value = num.substring(0, num.length - 1)
+               }
+               const submitBtn = document.getElementById('submit').addEventListener('click', function(){
+                   const setPin = document.getElementById('pass').value;
+                    const messPin = document.getElementById('show-pin').value;
+                    if (setPin === messPin){
+                        notifySections .style .display = "block";   
+                    }
+                    else{
+                        notifySection .style .display = "block";
+                    }
                })
             </script>
             
